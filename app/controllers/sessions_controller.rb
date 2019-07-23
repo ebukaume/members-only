@@ -3,7 +3,6 @@
 class SessionsController < ApplicationController
   def new
     @user = current_user
-    debugger
   end
 
   def create

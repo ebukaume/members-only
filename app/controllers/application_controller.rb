@@ -17,8 +17,7 @@ class ApplicationController < ActionController::Base
 
   def current_user
     if @current_user.nil?
-      user = User.find_by(:id, cookies[:sessions])
-
+      user = User.find_by(id: cookies[:sessions])
       if user
         token = cookies[:sessions]
         if Digest::SHA1.hexdigest(token) == user.remember_token
@@ -31,5 +30,9 @@ class ApplicationController < ActionController::Base
 
   def current_user=(user)
     @current_user ||= user
+  end
+
+  def logged_in?
+    !!current_user
   end
 end

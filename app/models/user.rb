@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :posts
   has_secure_password
   before_create :assign_remember_token
 

@@ -1,38 +1,22 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include SessionsHelper
+
   def log_in(user)
     token = SecureRandom.urlsafe_base64
     cookies.permanent[:sessions] = token
-    cookies.permanent[:user_id] = user.id
+    cookies.permanent.signed[:user_id] = user.id
     digest = Digest::SHA1.hexdigest(token)
-    user.update_attribute(:remember_token, token)
+    user.update_attribute(:remember_token, digest)
   end
 
-  def log_out(user)
-    current_user = nil?
-    user.clear.digest
-    cookies.clear
+  def log_out
+    current_user = nil
+    cookies.delete(:user_id)
   end
 
-  def current_user
-    if @current_user.nil?
-      user = User.find_by(id: cookies[:sessions])
-      if user
-        token = cookies[:sessions]
-        if Digest::SHA1.hexdigest(token) == user.remember_token
-          @current_user = user
-        end
-      end
-    end
-    @current_user
-   end
-
-  def current_user=(user)
-    @current_user ||= user
-  end
-
-  def logged_in?
-    !!current_user
+  def require_login
+    redirect_to sign_in_url unless logged_in?
   end
 end

@@ -1,6 +1,3 @@
 <h1>All secret posts!</h1>
 
-<%= @posts.each do |post| %>
-  <%= content_tag :h3, post.title %>
-  <%= content_tag :p, post.body %>
-<% end %>
+<%= render "post" %>

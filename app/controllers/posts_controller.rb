@@ -1,17 +1,25 @@
 class PostsController < ApplicationController
-  before_action :logged_in?, only: [:new, :create]
+  before_action :require_login, only: [:new, :create]
   
   def new
-    @user = current_user
     @post = Post.new
   end
 
   def create
-    @user = current_user
+    if current_user.posts.new(post_params).save
+      redirect_to posts_url
+    else
+      render :new
+    end
   end
 
   def index
-    @user = current_user
     @posts = Post.all
+  end
+
+  private
+  
+  def post_params
+    params.require(:post).permit(:title, :body)
   end
 end

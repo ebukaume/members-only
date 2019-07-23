@@ -1,0 +1,5 @@
+<ul>
+  <% flash.each do |name, msg| %>
+    <%= content_tag :li, msg, class: name %>
+  <% end %>
+</ul>

@@ -1,0 +1,6 @@
+<h1>All secret posts!</h1>
+
+<% if logged_in? %>
+  <%= link_to 'Create new post', new_post_path %>
+<% end %><br><br>
+<%= render "post" %>

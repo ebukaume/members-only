@@ -1,0 +1,20 @@
+<h1>Sign up to become a member</h1>
+
+<%= render 'shared/errors' %>
+
+<%= form_for @user do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %> <br>
+
+  <%= f.label :email %>
+  <%= f.email_field :email %> <br>
+
+  <%= f.label :password %>
+  <%= f.password_field :password %> <br>
+
+  <%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation %> <br>
+
+  <%= f.submit "Sign up Now" %>
+  <p>Already have an account? <%= link_to 'Sign in', sign_in_path %></p>
+<% end %>

@@ -1,10 +1,10 @@
 class User < ApplicationRecord
   has_many :posts
-  has_secure_password
   before_create :assign_remember_token
 
   validates :password, presence: true, length: {minimum: 8}
   validates :password_confirmation, presence: true
+  has_secure_password
 
   private
 

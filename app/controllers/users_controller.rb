@@ -1,9 +1,7 @@
 class UsersController < ApplicationController
+  before_action :require_not_logged_in, except: [:destroy]
+
   def new
-    if logged_in?
-      flash[:info] = "You are already logged in!"
-      redirect_to posts_url and return
-    end
     @user = User.new
   end
 

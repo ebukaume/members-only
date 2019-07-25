@@ -1,9 +1,7 @@
 class SessionsController < ApplicationController
+  before_action :require_not_logged_in, only: [:new]
+
   def new
-    if logged_in?
-      flash[:info] = "You are already logged in!"
-      redirect_to posts_url and return
-    end
   end
 
   def create

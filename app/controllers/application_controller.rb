@@ -19,4 +19,11 @@ class ApplicationController < ActionController::Base
   def require_login
     redirect_to sign_in_url unless logged_in?
   end
+
+  def require_not_logged_in 
+    if logged_in?
+      flash[:info] = "You are already logged in!"
+      redirect_to posts_url and return
+    end
+  end
 end
